@@ -1,45 +1,67 @@
 package arkanoidBueno;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-
+import java.awt.Graphics;
 
 public class Bola extends Actor {
-	public static final int DIAMETRO = 15;
-	
-	private int velocidadX = 3;
-	private int velocidadY = 3;
-	
-	
+	private String nombre;
+	private int velocidadX = -5;
+	private int velocidadY = -5;
+
 	public Bola() {
 		super();
-		spriteActual = null;
-		this.x = Arkanoid.getInstancia().getWidth() / 2;
-		this.y = Arkanoid.getInstancia().getHeight() / 2;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Bola(int x, int y, int ancho, int alto, String nombre) {
+		super(x, y, ancho, alto);
+		this.nombre = nombre;
+		
 	}
 
-	
-	public void paint(Graphics2D g){
-		g.setColor(Color.LIGHT_GRAY);
-		
-		g.fillOval(this.x, this.y, DIAMETRO, DIAMETRO);
+
+	public String getNombre() {
+		return nombre;
 	}
 
-	
-	
-	public void act() {
-		
-		if (this.x < 0 || this.x > Arkanoid.getInstancia().getWidth()- DIAMETRO) {
-			this.velocidadX = 0 - this.velocidadX;
-		}
-		
-		if (this.y < 0 || this.y > Arkanoid.getInstancia().getHeight() - DIAMETRO) {
-			this.velocidadY = 0 - this.velocidadY;
-		}
-		
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getVelocidadX() {
+		return velocidadX;
+	}
+
+	public void setVelocidadX(int velocidadX) {
+		this.velocidadX = velocidadX;
+	}
+
+	public int getVelocidadY() {
+		return velocidadY;
+	}
+
+	public void setVelocidadY(int velocidadY) {
+		this.velocidadY = velocidadY;
+	}
+
+	@Override
+	public void actua() {
 		this.x += this.velocidadX;
+		if (this.x < 0 || this.x > 478) {
+			this.velocidadX = -this.velocidadX;
+		}
+
 		this.y += this.velocidadY;
+		if (this.y < 0 || this.y > 580) {
+			this.velocidadY = -this.velocidadY;
+
+		}
 	}
 
-
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		g.setColor(Color.magenta);
+		g.fillOval(this.x, this.y, this.ancho, this.alto);
+	}
 }

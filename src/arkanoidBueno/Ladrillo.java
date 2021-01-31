@@ -1,37 +1,54 @@
 package arkanoidBueno;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-
+import java.awt.Graphics;
 
 public class Ladrillo extends Actor {
+	private String nombre;
+	private Color color;
 
-	public static final int ANCHO = 30;
-	public static final int ALTO = 20;
-	
-	private Color color = null;
-	
-	/**
-	 * 
-	 */
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	@Override
+	public void actua() {
+		// TODO Auto-generated method stub
+
+	}
+
 	public Ladrillo() {
 		super();
-		spriteActual = null; 
-		this.x = 10;
-		this.y = 10;
-		this.color = Color.WHITE;
 	}
 
-	
-	
-	public void paint(Graphics2D g){
-		g.setColor(Color.RED);
-		
-		g.fillRect(this.x, this.y, ANCHO, ALTO);
+	public Ladrillo(int x, int y, int ancho, int alto, String nombre) {
+		super(x, y, ancho, alto);
+		this.nombre = nombre;
+
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
 
-	
-	public Color getColor() { return color; }
-	public void setColor(Color color) { this.color = color; }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	@Override
+	public String toString() {
+		return "Ladrillo [nombre=" + nombre + ", x=" + x + ", y=" + y + ", ancho=" + ancho + ", alto=" + alto + "]";
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+
+		g.setColor(this.color);
+		g.fillRect(this.x, this.y, this.ancho, this.alto);
+	}
 }

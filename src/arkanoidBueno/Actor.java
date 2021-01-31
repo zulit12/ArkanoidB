@@ -1,54 +1,62 @@
 
 package arkanoidBueno;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 
+public abstract class Actor {
+    protected int x, y; // Coordenadas x e y del actor
+    protected int ancho, alto; // ancho y alto que ocupa el actor en pantalla
 
-public class Actor {
-	
-	protected int x, y;
-	protected BufferedImage spriteActual;
+    public Actor() {
 
-	
-	public Actor() {
-		
-	}
+    }
 
-	
-	public void paint(Graphics2D g) {
-		
-		if (this.spriteActual != null) {
-			g.drawImage(this.spriteActual, this.x, this.y, null);
-		}
-	}
+    public Actor(int x, int y, int ancho, int alto) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.ancho = ancho;
+        this.alto = alto;
 
-	
-	public void act() {
-	}
+    }
 
-	// Metodos setters y getters
-	public int getX() {
-		return x;
-	}
+ 
+    public abstract void paint(Graphics g);
 
-	public void setX(int x) {
-		this.x = x;
-	}
+   
 
-	public int getY() {
-		return y;
-	}
+    public abstract void actua();
 
-	public void setY(int y) {
-		this.y = y;
-	}
+    public int getX() {
+        return x;
+    }
 
-	public BufferedImage getSpriteActual() {
-		return spriteActual;
-	}
+    public void setX(int x) {
+        this.x = x;
+    }
 
-	public void setSpriteActual(BufferedImage spriteActual) {
-		this.spriteActual = spriteActual;
-	}
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(int ancho) {
+        this.ancho = ancho;
+    }
+
+    public int getAlto() {
+        return alto;
+    }
+
+    public void setAlto(int alto) {
+        this.alto = alto;
+    }
+
 }
