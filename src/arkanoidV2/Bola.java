@@ -3,6 +3,7 @@ package arkanoidV2;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+
 /**
  * Clase que representa la bola del juego, que rebotar� y destruir� ladrillos
  * @author R
@@ -51,6 +52,17 @@ public class Bola extends Actor {
 		// Agregamos las velocidades respectivas a cada eje para la bola
 		this.x += this.velocidadX;
 		this.y += this.velocidadY;
+	}
+	
+	public void colisionaCon(Actor a) {
+		super.colisionaCon(a);
+		// Si colisionamos con monstruo, eliminamos el disparo
+		if (a instanceof Ladrillo) {
+			this.velocidadY = +3;
+		}
+		if (a instanceof Nave) {
+			this.velocidadY = -3;
+		}
 	}
 
 

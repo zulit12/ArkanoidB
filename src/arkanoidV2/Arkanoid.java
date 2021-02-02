@@ -5,6 +5,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 /**
  * Clase principal del programa, act�a como la ventana que ver� el usuario. Se utiliza un patr�n Singleton
@@ -31,6 +33,8 @@ public class Arkanoid extends Canvas {
 	JFrame ventana = null;
 	// Lista de actores que se representan en pantalla
 	List<Actor> actores = new ArrayList<Actor>();
+	private List<Actor> actoresParaIncorporar = new ArrayList<Actor>();
+	private List<Actor> actoresParaEliminar = new ArrayList<Actor>();
 	// Nave y bola
 	Nave nave = null;
 	Bola bola = null;
@@ -130,6 +134,10 @@ public class Arkanoid extends Canvas {
 	    this.actores.add(this.nave);
 	    this.bola = new Bola();
 	    this.actores.add(this.bola);
+	    
+	    
+
+		
 	}
 		
 
@@ -141,6 +149,8 @@ public class Arkanoid extends Canvas {
 		for (Actor actor : this.actores) {
 			actor.act();
 		}
+		
+	
 	}
 		
 	
@@ -177,6 +187,9 @@ public class Arkanoid extends Canvas {
 			// Actualizamos y pintamos el nuevo frame
 			updateWorld();
 			paintWorld();
+			
+			
+
 			// Calculamos la cantidad de milisegundos que se ha tardado en realizar un nuevo frame del juego
 			int millisUsados = (int) (System.currentTimeMillis() - millisAntesDeConstruirEscena);
 			// Hago que el programa duerma lo suficiente para que realmente se ejecuten la cantidad de FPS
@@ -187,6 +200,64 @@ public class Arkanoid extends Canvas {
 					 Thread.sleep(millisADetenerElJuego);
 				}
 			} catch (InterruptedException e) {}
+			
+			detectaColisiones();
+			
+			actualizaActores();
+			
+		}
+		
+	}
+	
+	public void incorporaNuevoActor (Actor a) {
+		this.actoresParaIncorporar.add(a);
+	}
+
+	/**
+	 * Método llamado para eliminar actores del juego
+	 * @param a
+	 */
+	public void eliminaActor (Actor a) {
+		this.actoresParaEliminar.add(a);
+	}
+	
+	private void actualizaActores () {
+		// Incorporo los nuevos actores
+		for (Actor a : this.actoresParaIncorporar) {
+			this.actores.add(a);
+		}
+		this.actoresParaIncorporar.clear(); // Limpio la lista de actores a incorporar, ya están incorporados
+		
+		// Elimino los actores que se deben eliminar
+		for (Actor a : this.actoresParaEliminar) {
+			this.actores.remove(a);
+		}
+		this.actoresParaEliminar.clear(); // Limpio la lista de actores a eliminar, ya los he eliminado
+	}
+	
+	
+	private void detectaColisiones() {
+		// Una vez que cada actor ha actuado, intento detectar colisiones entre los actores y notificarlas. Para detectar
+		// estas colisiones, no nos queda más remedio que intentar detectar la colisión de cualquier actor con cualquier otro
+		// sólo con la excepción de no comparar un actor consigo mismo.
+		// La detección de colisiones se va a baser en formar un rectángulo con las medidas que ocupa cada actor en pantalla,
+		// De esa manera, las colisiones se traducirán en intersecciones entre rectángulos.
+		for (Actor actor1 : this.actores) {
+			// Creo un rectángulo para este actor.
+			Rectangle rect1 = new Rectangle(actor1.getX(), actor1.getY(), actor1.getAncho(),actor1.getAlto());
+			// Compruebo un actor con cualquier otro actor
+			for (Actor actor2 : this.actores) {
+				// Evito comparar un actor consigo mismo, ya que eso siempre provocaría una colisión y no tiene sentido
+				if (!actor1.equals(actor2)) {
+					// Formo el rectángulo del actor 2
+					Rectangle rect2 = new Rectangle(actor2.getX(), actor2.getY(), actor2.getAncho(),actor2.getAlto());
+					// Si los dos rectángulos tienen alguna intersección, notifico una colisión en los dos actores
+					if (rect1.intersects(rect2)) {
+						actor1.colisionaCon(actor2); // El actor 1 colisiona con el actor 2
+						actor2.colisionaCon(actor1); // El actor 2 colisiona con el actor 1
+					}
+				}
+			}
 		}
 	}
 	

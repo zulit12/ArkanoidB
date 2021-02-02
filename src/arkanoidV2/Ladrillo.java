@@ -3,6 +3,7 @@ package arkanoidV2;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+
 /**
  * Clase que representa a cada ladrillo de los que pondremos sobre la pantalla
  * @author R
@@ -46,6 +47,14 @@ public class Ladrillo extends Actor {
 		g.setColor(this.color);
 		// Pinto el ladrillo como un rect�ngulo con v�rtices redondeados
 		g.fillRoundRect(this.x, this.y, ANCHO, ALTO, 3, 3);
+	}
+	
+	public void colisionaCon(Actor a) {
+		super.colisionaCon(a);
+		// Si colisionamos con un player o un disparo, eliminamos al monstruo
+		if (a instanceof Bola || a instanceof Bola) {
+			Arkanoid.getInstancia().eliminaActor(this);
+		}
 	}
 
 
