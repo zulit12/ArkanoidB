@@ -14,6 +14,8 @@ public class Ladrillo extends Actor {
 	public static final int ANCHO = 30;
 	public static final int ALTO = 20;
 	public static final int ESPACIO_ENTRE_LADRILLOS = 2;
+	private String nombreCarpetaParaFile = "./src/arkanoidV2";
+	private String nombreCarpetaParaURL = "./";
 	
 	// Propiedades espec�ficas de cada ladrillo
 	private Color color = null;
@@ -54,6 +56,7 @@ public class Ladrillo extends Actor {
 		// Si colisionamos con un player o un disparo, eliminamos al monstruo
 		if (a instanceof Bola || a instanceof Bola) {
 			Arkanoid.getInstancia().eliminaActor(this);
+			Arkanoid.getInstancia().incorporaNuevoActor(new Explosion(this.x, this.y));
 		}
 	}
 

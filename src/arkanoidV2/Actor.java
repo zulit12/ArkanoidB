@@ -2,6 +2,8 @@ package arkanoidV2;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -15,6 +17,7 @@ public class Actor {
 	protected int x, y;
 	protected int ancho = 30, alto = 30;
 	protected BufferedImage spriteActual;
+	protected List<BufferedImage> spritesDeAnimacion = new ArrayList<BufferedImage>();
 	
 	
 	/**
@@ -47,9 +50,20 @@ public class Actor {
 	 */
 	public void act() {
 	}
+	
+	public List<BufferedImage> getSpritesDeAnimacion() {
+		return spritesDeAnimacion;
+	}
+
+	/**
+	 * @param spritesDeAnimacion the spritesDeAnimacion to set
+	 */
+	public void setSpritesDeAnimacion(List<BufferedImage> spritesDeAnimacion) {
+		this.spritesDeAnimacion = spritesDeAnimacion;
+	}
 
 
-	// M�todos setters y getters
+	// Metodos setters y getters
 	public int getX() {	return x; }
 	public void setX(int x) { this.x = x; }
 	public int getY() { return y; }

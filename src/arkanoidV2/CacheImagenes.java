@@ -1,5 +1,6 @@
 package arkanoidV2;
 
+import java.applet.Applet;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import javax.imageio.ImageIO;
 public class CacheImagenes {
 	// HashMap que act�a como almac�n de im�genes
 	private HashMap<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
-	
+	private String nombreCarpetaParaURL = "./";
 	// Instancia Singleton
 	private static CacheImagenes instancia= null;
 	
@@ -30,6 +31,28 @@ public class CacheImagenes {
 		}
 		return instancia;
 	}
+	
+	private void cargarFicheroEnHashMap (String nombreFichero) {
+		// Obtengo un objeto URL para localizar el recurso
+		URL url = null;
+
+		url = getClass().getResource(nombreCarpetaParaURL + nombreFichero);
+		// Discriminará el caso de que intento cargar un sonido del caso de cargar imágenes
+		try {
+			if (nombreFichero.endsWith(".wav") || nombreFichero.endsWith(".mp3")) {
+				this.sprites.put(nombreFichero, (BufferedImage) Applet.newAudioClip(url));
+			} 
+			else { // Si no es un sonido entiendo que se trata de una imagen
+				this.sprites.put(nombreFichero, ImageIO.read(url));
+			}
+		}
+		catch (Exception ex) {
+			System.out.println("No se pudo cargar el recurso " + nombreFichero);
+			ex.printStackTrace();
+		}
+	}
+	
+
 
 	
 	/**

@@ -42,7 +42,7 @@ public class Arkanoid extends Canvas {
 	Fase faseActiva = null;
 	// Estrategia de Doble Buffer
 	private BufferStrategy strategy;
-	// Variable para patr�n Singleton
+	// Variable para patron Singleton
 	private static Arkanoid instancia = null;
 	
 	/**
