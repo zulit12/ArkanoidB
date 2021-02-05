@@ -14,8 +14,7 @@ public class Ladrillo extends Actor {
 	public static final int ANCHO = 30;
 	public static final int ALTO = 20;
 	public static final int ESPACIO_ENTRE_LADRILLOS = 2;
-	private String nombreCarpetaParaFile = "./src/arkanoidV2";
-	private String nombreCarpetaParaURL = "./";
+
 	
 	// Propiedades espec�ficas de cada ladrillo
 	private Color color = null;

@@ -18,6 +18,8 @@ public class Actor {
 	protected int ancho = 30, alto = 30;
 	protected BufferedImage spriteActual;
 	protected List<BufferedImage> spritesDeAnimacion = new ArrayList<BufferedImage>();
+	protected int velocidadDeCambioDeSprite = 0;
+	private int unidadDeTiempo = 0;
 	
 	
 	/**
@@ -49,6 +51,15 @@ public class Actor {
 	 * M�todo que se llamar� para cada actor, en cada refresco de pantalla del juego
 	 */
 	public void act() {
+		if (this.spritesDeAnimacion != null && this.spritesDeAnimacion.size() > 0) {
+			unidadDeTiempo++;
+			if (unidadDeTiempo % velocidadDeCambioDeSprite == 0){
+				unidadDeTiempo = 0;
+				int indiceSpriteActual = spritesDeAnimacion.indexOf(this.spriteActual);
+				int indiceSiguienteSprite = (indiceSpriteActual + 1) % spritesDeAnimacion.size();
+				this.spriteActual = spritesDeAnimacion.get(indiceSiguienteSprite);
+			}
+		}
 	}
 	
 	public List<BufferedImage> getSpritesDeAnimacion() {

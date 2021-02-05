@@ -7,9 +7,6 @@ import java.util.List;
 
 public class Explosion extends Actor {
 
-	
-	private int velocidadDeCambioDeSprite;
-
 
 	public Explosion(int x, int y) {
 		super();
